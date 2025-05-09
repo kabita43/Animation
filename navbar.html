@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Single Page Site</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #f8f9fa;
+      padding: 10px;
+      position: sticky;
+      top: 0;
+    }
+
+    .nav-link {
+      padding: 10px;
+      color: #333;
+      text-decoration: none;
+      font-weight: normal;
+    }
+
+    .nav-link.active {
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 50px;
+      height: 100vh;
+      border-bottom: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#home" class="nav-link">Home</a>
+    <a href="#about" class="nav-link">About</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </nav>
+
+  <section id="home">
+    <h1>Home Section</h1>
+    <p>Welcome to the Home page!</p>
+  </section>
+
+  <section id="about">
+    <h1>About Section</h1>
+    <p>Information about us.</p>
+  </section>
+
+  <section id="contact">
+    <h1>Contact Section</h1>
+    <p>Contact details here.</p>
+  </section>
+
+  <script>
+    const links = document.querySelectorAll('.nav-link');
+
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        // 🔽 This line removes 'active' class from all links
+        links.forEach(l => l.classList.remove('active'));
+
+        // 🔽 This line adds 'active' class to the clicked link
+        link.classList.add('active');
+      });
+    });
+
+    // Optional: auto-update active link on scroll
+    window.addEventListener('scroll', () => {
+      const fromTop = window.scrollY;
+
+      links.forEach(link => {
+        const section = document.querySelector(link.getAttribute('href'));
+
+        if (
+          section.offsetTop <= fromTop &&
+          section.offsetTop + section.offsetHeight > fromTop
+        ) {
+          // 🔽 This loop ensures only the link for the visible section gets the active class
+          links.forEach(l => l.classList.remove('active'));
+          link.classList.add('active'); // 🔽 This line highlights based on scroll
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

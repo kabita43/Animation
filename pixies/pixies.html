@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fairy World</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      height: 100vh;
+    }
+
+    .sky {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      width: 2px;
+      height: 2px;
+      animation: twinkle 4s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    .fairy-img {
+      position: absolute;
+      width: 100px;
+      height: auto;
+      animation: fly 10s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes fly {
+      0% {
+        transform: translateY(0) translateX(0) scale(1);
+      }
+      50% {
+        transform: translateY(-100px) translateX(100px) scale(1.1);
+      }
+      100% {
+        transform: translateY(0) translateX(0) scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sky" id="sky"></div>
+
+  <script>
+    // Generate stars
+    const sky = document.getElementById('sky');
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.animationDuration = `${2 + Math.random() * 3}s`;
+      sky.appendChild(star);
+    }
+
+    // Array of fairy image paths
+    const fairyImages = [
+      'images/bee.jpeg',
+      'images/bee01.png',
+      'images/fairy03.png'
+    ];
+
+    // Add fairies
+    for (let i = 0; i < 6; i++) {
+      const img = document.createElement('img');
+      img.src = fairyImages[i % fairyImages.length];
+      img.alt = 'Flying Fairy';
+      img.className = 'fairy-img';
+      img.style.top = `${Math.random() * 80 + 10}%`;
+      img.style.left = `${Math.random() * 90}%`;
+      img.style.animationDelay = `${Math.random() * 5}s`;
+      sky.appendChild(img);
+    }
+  </script>
+</body>
+</html>
